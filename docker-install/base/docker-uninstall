@@ -1,0 +1,23 @@
+# 卸载Docker
+
+docker_uninstall() {
+    # CentOS/RHEL 系列检查是否安装Docker
+    if [ ${OS_NAME} = "centos" ] || [ ${OS_NAME} = "rhel" ]; then
+        echo "开始卸载Docker..."
+        systemctl stop docker &>/dev/null
+        systemctl disable docker &>/dev/null
+        sudo yum -y remove docker docker-ce &>/dev/null
+
+        echo "删除配置文件和数据文件..."
+        sudo rm -rf /var/lib/docker
+        sudo rm -rf /var/lib/containerd
+        sudo rm -rf /etc/docker/
+        sudo rm -rf /var/run/docker
+        sudo rm -rf /var/run/dockershim.sock
+        sudo rm -rf /usr/bin/docker* /usr/bin/containerd* /usr/bin/runc /usr/bin/ctr
+
+    # Ubuntu 系列检查是否安装Docker
+    else
+        sudo apt-get -y autoremove docker* containerd* &>/dev/null
+    fi
+}

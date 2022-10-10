@@ -1,0 +1,27 @@
+# 检查系统中是否安装Docker
+
+docker_check() {
+    echo "检查系统是否安装Docker..."
+
+    # CentOS/RHEL 系列检查是否安装Docker
+    if [ ${OS_NAME} = "centos" ] || [ ${OS_NAME} = "rhel" ]; then
+        export PKG_COUNT = `rpm -qa | grep -E 'docker-ce|container' | wc -l`
+        if [ ${PKG_COUNT} -eq 0 ]; then
+            echo "当前系统未安装Docker，现在开始安装..."
+        else
+            echo "当前系统已安装Docker，即将卸载后重装！"
+            docker_uninstall
+        fi
+
+    # Ubuntu 系列检查是否安装Docker
+    else
+        export PKG_COUNT = `dpkg -l | grep -E 'docker-ce|containerd' | wc -l`
+        if [ ${PKG_COUNT} -eq 0 ]; then
+            echo "当前系统未安装Docker，现在开始安装..."
+        else
+            echo "当前系统已安装Docker，即将卸载后重装！"
+            docker_uninstall
+        fi
+    fi
+}
+

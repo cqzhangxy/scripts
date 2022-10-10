@@ -1,0 +1,19 @@
+# 操作系统信息
+OS_INFO_FILE = "/etc/os-release"
+OS_NAME = `. /etc/os-release && echo $NAME`
+OS_VERSION_ID = `. /etc/os-release && echo $VERSION_ID`
+UBUNTU_VERSION_ID = `. /etc/os-release && echo "${VERSION_ID}" | awk -F "." '{print $1}'` # Ubuntu 版本
+
+# 目录结构
+BASE_DIR = `readlink -f .`
+PKG_DIR = "${BASE_DIR}/pakages"
+DEB_PKG_DIR = "${PKG_DIR}/deb"
+RPM_PKG_DIR = "${PKG_DIR}/rpm"
+UBUNTU18_DEB_PKG_DIR = "${DEB_PKG_DIR}/ubuntu-18"
+UBUNTU20_DEB_PKG_DIR = "${DEB_PKG_DIR}/ubuntu-20"
+UBUNTU22_DEB_PKG_DIR = "${DEB_PKG_DIR}/ubuntu-22"
+CENTOS7_RPM_DIR = "${RPM_PKG_DIR}/centos7"
+CENTOS8_RPM_DIR = "${RPM_PKG_DIR}/centos8"
+RHEL7_RPM_DIR = "${RPM_PKG_DIR}/rhel7"
+RHEL8_RPM_DIR = "${RPM_PKG_DIR}/rhel8"
+

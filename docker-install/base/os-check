@@ -1,0 +1,47 @@
+#!/bin/bash
+
+# 检查操作系统是否为:
+# · Ubuntu 18.x/20.x/22.x
+# · CentOS 7.x/8.x
+# · Redhat 7.x/8.x
+
+os_check(){
+    echo "开始检查操作系统..."
+
+    if -f [ ${OS_INFO_FILE} ];then
+        case "${OS_NAME}" in
+            ubuntu)
+                if [ ${UBUNTU_VERSION_ID} = "22" ] || [ ${UBUNTU_VERSION_ID} = "20" ] || [ ${UBUNTU_VERSION_ID} = "18" ];
+                    then
+                        echo "当前操作系统版本：${OS_NAME} ${UBUNTU_VERSION_ID}"
+                        echo "======================================================="
+                    else
+                        echo "当前操作系统版本：${OS_NAME} ${UBUNTU_VERSION_ID}"
+                        echo "不支持${OS_NAME}此版本自动安装!"
+                        exit
+                fi
+            ;;
+
+            centos|rhel)
+                if [ ${OS_VERSION_ID} = 7 ] || [ ${OS_VERSION_ID} = 8 ];
+                    then
+                        echo "当前操作系统版本为：${OS_NAME} ${OS_VERSION_ID}"
+                        echo "========================================================"
+                    else
+                        echo "当前操作系统版本：${OS_NAME} ${OS_VERSION_ID}"
+                        echo "不支持${OS_NAME}此版本自动安装!"
+                fi
+            ;;
+
+            *)
+                echo "当前操作系统版本为：${OS_NAME} ${OS_VERSION_ID}"
+                echo "不支持此操作系统自动安装!"
+                exit
+            ;;
+        esac
+    else
+        echo "无法识别该操作系统！"
+        echo "即将退出脚本..."
+        exit
+    fi
+}

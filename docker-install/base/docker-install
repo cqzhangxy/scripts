@@ -1,0 +1,10 @@
+docker_install() {
+    echo "安装Docker..."
+    if [ ${OS_NAME} = "centos" ]; then
+        if [ ${OS_VERSION_ID} = ] 
+
+    # Ubuntu 系列检查是否安装Docker
+        
+        sudo apt-get -y autoremove docker* containerd* &>/dev/null
+    fi
+}
